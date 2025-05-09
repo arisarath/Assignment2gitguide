@@ -1,0 +1,146 @@
+---
+title: "Git guide"
+format: html
+editor: visual
+---
+
+```{r}
+#| echo: false
+```
+
+"Dont forget to add table of contents"
+
+## What is git?
+
+Git is a version control system that tracks the history of your project. It records changes you commit including **who** made it, **when** it was made, and **how**. Allowing you to go back to older versions, and collaborate among team member effectively without overwriting each others work.
+
+## Structure of git
+
+1.  working directory
+2.  staging area
+3.  repository
+
+## Getting started
+
+"Make two column(table) to show different options"
+
+Option A: 1.Create a new git repository in current folder using **git init** to start tracking changes 2. Connect to github git remote add origin <URL>: to link local repository with github-hosted remote
+
+Option B:
+
+1.Create new github repository 2.Copy SSH key 3.Go to destinated directory 4.Clone from remote repository using git clone <repository-URL> *When?* Useful when you want to work on project that already exists on GitHub or other Git server.
+
+## Basic commands
+
+-   git status : to check the status of files(staged or not) \* git add <filename>: add specific file to staging area or \<.\> to add all changes
+-   git commit -m "commit message" : records changes with messages
+-   git log : to read commit history. Labeled "--oneline" at the end for shorter history
+
+## Working with others
+
+git push : send your changes to github repo git pull: fetch and merge changes from github
+
+## Working with branches
+
+-   git branch <name> : to create a new branch
+-   git switch <branch name> : to move between branches
+-   git switch -c <branch name>: shortcut to create and switch branch
+-   git branch -d <branch name>: to delete branch
+-   git fetch origin : identify where the origin is and fetches any data from it that you don’t yet have
+-   git push origin <branch name>: to connect branch to GitHub
+
+*Why?* Enable parallel and isolate development, different team members can work on different branch for features or fixes without affecting the main branch which helps to reduce risk of breaking and tidy and stable
+
+### Rebase branch
+
+Move or combine a sequence of commits from a branch onto another branch
+
+git checkout feature git rebase main
+
+or
+
+git rebase main feature
+
+Now commits in feature branch will now move to main branch
+
+**Unlike git merge** that preserve branch structure by creating new merge commit, git rebase reapplies commits on top of target branch maintaining clean workflows
+
+## Merging and Conflict resolution
+
+### Merging branch
+
+-   git switch main : locate and select main branch
+-   git merge testbranch : combine changes from testbranch to main
+-   git push origin <branchname> : push branches to GitHub
+
+### Merge conflict
+
+**Only appears when two people edit in the same part of the file**
+
+"Show example of edit different part of file \> No conflict" "Show picture of merge conflict"
+
+To solve this: manually edit file then add and commit again
+
+## Recover and Undo
+
+"Explain by using the figure in oral presentation"
+
+### Amend last commit
+
+git commit --amend -m "new commit message" : modify most recent commit
+
+### Git reset
+
+git reset HEAD\~n (n = number of commit before head)
+
+git reset --soft HEAD\~n: keep changes in working directory and staging area but moves HEAD pointer to different commit *Why?* useful for rephrase message or include more files
+
+git reset --mixed HEAD\~n: *Default mode* keep changes in working directory but reset both HEAD pointer and staging area
+
+git reset --hard HEAD\~n: Reset HEAD pointer to different commit and completely discards all changes in both staging area and working diretory **Be cautious**
+
+### Git reflog
+
+Keeps a record of all changes made to the HEAD, branches, and tags including things that log forgets.
+
+Example; Reset too far using git reset --hard HEAD\~1 command. Run **git reflog** to find commit history. Use git checkout <hash> to find specific file
+
+*Why?* Recover lost commits, track what happened, undo mistakes
+
+### Git checkout
+
+Restore file to its state as it existed in particular commit
+
+git checkout <hash> : move HEAD pointer to specific commit or switch between branches
+
+git checkout HEAD: Restore file to last committed version *Why?* Helps to revert changes made to a file back to previous state without affecting other files in your working directory
+
+### Git revert
+
+Create new commit that undo the changes made by specific commit
+
+git revert <hash>
+
+**Unlike git reset** which alters commit history, git revert create new commit that inversely applies changes
+
+## Stacking work
+
+Temporarily store uncommitted changes and revert your working directory to a clean state \* git stash : save changes for later \* git stash apply: reapplies the latest stashed file to your working directory without deleting them from stash list \* git stash pop: applies the latest stashed file but also removes it from stash list \* git stash list: show all stashes \* git stash clear: delete all stashes
+
+*Why?* Helpful when you're in the middle of editing but you need to switch tasks or branches without losing your progress
+
+## Tag
+
+-   git tag -a v1.0 -m "commit message" : create tag and commit
+-   git push origin v1.0: push tag to GitHub *similar to pushing branch*
+-   git tag -d v1.0 : to delete tag
+-   git tag / git tag -n / git show tagname: to list all tag
+
+## Cleaning and restoring
+
+-   git rm filename.txt: remove tracked file from both working directory and staging area
+-   git rm --cached data.csv: stop tracking from version control but keep a file locally
+-   git restore filename.txt: revert changes in working directory to match the last commit (if you made unwanted changes to a file but haven't committed)
+-   git checkout HEAD\~1 --filename.txt: recovers a file from the previous commit (*if you already committed*)
+-   git clean -n: preview of untracked files deletion
+-   git clean -f : delete untracked files **permanently**
