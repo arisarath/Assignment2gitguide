@@ -24,30 +24,46 @@ Git is a version control system that tracks the history of your project. It reco
 
 "Make two column(table) to show different options"
 
-Option A: 1.Create a new git repository in current folder using **git init** to start tracking changes 2. Connect to github git remote add origin <URL>: to link local repository with github-hosted remote
+Option A:
+
+1.  Create a new git repository in current folder using **git init** to start tracking changes
+2.  Connect to github git remote add origin \<`URL`{=html}\>: to link local repository with github-hosted remote
 
 Option B:
 
-1.Create new github repository 2.Copy SSH key 3.Go to destinated directory 4.Clone from remote repository using git clone <repository-URL> *When?* Useful when you want to work on project that already exists on GitHub or other Git server.
+1.  Create new github repository
+2.  Copy SSH key
+3.  Go to destinated directory
+4.  Clone from remote repository using git clone \<`repository-URL`{=html}\>
+
+*When?* Useful when you want to work on project that already exists on GitHub or other Git server.
 
 ## Basic commands
 
--   git status : to check the status of files(staged or not) \* git add <filename>: add specific file to staging area or \<.\> to add all changes
+-   git status : to check the status of files(staged or not)
+-   git add \<`filename`{=html}\>: add specific file to staging area or \<.\> to add all changes
 -   git commit -m "commit message" : records changes with messages
 -   git log : to read commit history. Labeled "--oneline" at the end for shorter history
 
 ## Working with others
 
-git push : send your changes to github repo git pull: fetch and merge changes from github
+\*\* git push : send your changes to github repo \*\* git pull: fetch and merge changes from github
 
 ## Working with branches
 
--   git branch <name> : to create a new branch
--   git switch <branch name> : to move between branches
--   git switch -c <branch name>: shortcut to create and switch branch
--   git branch -d <branch name>: to delete branch
+### Within Local repository
+
+-   git branch \<`name`{=html}\> : to create a new branch
+-   git switch \<`branch name`{=html}\> : to move between branches
+-   git switch -c \<`branch name`{=html}\>: shortcut to create and switch branch
+-   git branch -d \<`branch name`{=html}\>: to delete branch
+
+### GitHub repository
+
 -   git fetch origin : identify where the origin is and fetches any data from it that you don’t yet have
--   git push origin <branch name>: to connect branch to GitHub
+-   git remote add origin \<`URL`{=html}\>: add connection to remote repository
+-   git push origin \<`branch name`{=html}\>: send your changes to specific branch in GitHub repository
+-   git push origin --delete \<`branch name`{=html}\>: delete specific branch from GitHub repository
 
 *Why?* Enable parallel and isolate development, different team members can work on different branch for features or fixes without affecting the main branch which helps to reduce risk of breaking and tidy and stable
 
@@ -71,7 +87,7 @@ Now commits in feature branch will now move to main branch
 
 -   git switch main : locate and select main branch
 -   git merge testbranch : combine changes from testbranch to main
--   git push origin <branchname> : push branches to GitHub
+-   git push origin \<`branchname`{=html}\> : push branches to GitHub
 
 ### Merge conflict
 
@@ -103,7 +119,7 @@ git reset --hard HEAD\~n: Reset HEAD pointer to different commit and completely 
 
 Keeps a record of all changes made to the HEAD, branches, and tags including things that log forgets.
 
-Example; Reset too far using git reset --hard HEAD\~1 command. Run **git reflog** to find commit history. Use git checkout <hash> to find specific file
+Example; Reset too far using git reset --hard HEAD\~1 command. Run **git reflog** to find commit history. Use git checkout \<`hash`{=html}\> to find specific file
 
 *Why?* Recover lost commits, track what happened, undo mistakes
 
@@ -111,7 +127,7 @@ Example; Reset too far using git reset --hard HEAD\~1 command. Run **git reflog*
 
 Restore file to its state as it existed in particular commit
 
-git checkout <hash> : move HEAD pointer to specific commit or switch between branches
+git checkout \<`hash`{=html}\> : move HEAD pointer to specific commit or switch between branches
 
 git checkout HEAD: Restore file to last committed version *Why?* Helps to revert changes made to a file back to previous state without affecting other files in your working directory
 
@@ -119,13 +135,23 @@ git checkout HEAD: Restore file to last committed version *Why?* Helps to revert
 
 Create new commit that undo the changes made by specific commit
 
-git revert <hash>
+git revert \<`hash`{=html}\>
 
 **Unlike git reset** which alters commit history, git revert create new commit that inversely applies changes
 
 ## Stacking work
 
-Temporarily store uncommitted changes and revert your working directory to a clean state \* git stash : save changes for later \* git stash apply: reapplies the latest stashed file to your working directory without deleting them from stash list \* git stash pop: applies the latest stashed file but also removes it from stash list \* git stash list: show all stashes \* git stash clear: delete all stashes
+Temporarily store uncommitted changes and revert your working directory to a clean state
+
+-   git stash : save changes for later
+
+-   git stash apply: reapplies the latest stashed file to your working directory without deleting them from stash list
+
+-   git stash pop: applies the latest stashed file but also removes it from stash list
+
+-   git stash list: show all stashes
+
+-   git stash clear: delete all stashes
 
 *Why?* Helpful when you're in the middle of editing but you need to switch tasks or branches without losing your progress
 
